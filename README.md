@@ -1,6 +1,6 @@
 #include "stm32l0xx.h"
 
-// Definiciones de pines para los displays de 7 segmentos y los LEDs del semáforo
+// Definiciones de pines para los segmentos del display de 7 segmentos
 #define SEG_A GPIO_PIN_0
 #define SEG_B GPIO_PIN_1
 #define SEG_C GPIO_PIN_2
@@ -10,6 +10,7 @@
 #define SEG_G GPIO_PIN_6
 #define SEG_DP GPIO_PIN_7
 
+// Definiciones de pines para los LEDs del semáforo
 #define GREEN_LED1 GPIO_PIN_8
 #define YELLOW_LED1 GPIO_PIN_9
 #define RED_LED1 GPIO_PIN_10
@@ -23,17 +24,96 @@ const uint16_t colPins[4] = {GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15}
 
 // Mapa de los dígitos en el display de 7 segmentos
 const uint8_t digitSegments[10] = {
-    0b00111111, // 0
-    0b00000110, // 1
-    0b01011011, // 2
-    0b01001111, // 3
-    0b01100110, // 4
-    0b01101101, // 5
-    0b01111101, // 6
-    0b00000111, // 7
-    0b01111111, // 8
-    0b01101111  // 9
-};
+//Para el Número 0 (Encender SEG_A, SEG_B, SEG_C, SEG_D, SEG_E, SEG_F)
+GPIOA->ODR |= (1 << 0); // Encender SEG_A
+GPIOA->ODR |= (1 << 1); // Encender SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR |= (1 << 3); // Encender SEG_D
+GPIOA->ODR |= (1 << 4); // Encender SEG_E
+GPIOA->ODR |= (1 << 5); // Encender SEG_F
+GPIOA->ODR &= ~(1 << 6); // Apagar SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Para el Número 1 (Encender SEG_B, SEG_C)
+GPIOA->ODR &= ~(1 << 0); // Apagar SEG_A
+GPIOA->ODR |= (1 << 1); // Encender SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR &= ~(1 << 3); // Apagar SEG_D
+GPIOA->ODR &= ~(1 << 4); // Apagar SEG_E
+GPIOA->ODR &= ~(1 << 5); // Apagar SEG_F
+GPIOA->ODR &= ~(1 << 6); // Apagar SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Para el Número 2 (Encender SEG_A, SEG_B, SEG_D, SEG_E, SEG_G)
+GPIOA->ODR |= (1 << 0); // Encender SEG_A
+GPIOA->ODR |= (1 << 1); // Encender SEG_B
+GPIOA->ODR &= ~(1 << 2); // Apagar SEG_C
+GPIOA->ODR |= (1 << 3); // Encender SEG_D
+GPIOA->ODR |= (1 << 4); // Encender SEG_E
+GPIOA->ODR &= ~(1 << 5); // Apagar SEG_F
+GPIOA->ODR |= (1 << 6); // Encender SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Número 3 (Encender SEG_A, SEG_B, SEG_C, SEG_D, SEG_G)
+GPIOA->ODR |= (1 << 0); // Encender SEG_A
+GPIOA->ODR |= (1 << 1); // Encender SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR |= (1 << 3); // Encender SEG_D
+GPIOA->ODR &= ~(1 << 4); // Apagar SEG_E
+GPIOA->ODR &= ~(1 << 5); // Apagar SEG_F
+GPIOA->ODR |= (1 << 6); // Encender SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Número 4 (Encender SEG_B, SEG_C, SEG_F, SEG_G)
+GPIOA->ODR &= ~(1 << 0); // Apagar SEG_A
+GPIOA->ODR |= (1 << 1); // Encender SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR &= ~(1 << 3); // Apagar SEG_D
+GPIOA->ODR &= ~(1 << 4); // Apagar SEG_E
+GPIOA->ODR |= (1 << 5); // Encender SEG_F
+GPIOA->ODR |= (1 << 6); // Encender SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Número 5 (Encender SEG_A, SEG_C, SEG_D, SEG_F, SEG_G)
+GPIOA->ODR |= (1 << 0); // Encender SEG_A
+GPIOA->ODR &= ~(1 << 1); // Apagar SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR |= (1 << 3); // Encender SEG_D
+GPIOA->ODR &= ~(1 << 4); // Apagar SEG_E
+GPIOA->ODR |= (1 << 5); // Encender SEG_F
+GPIOA->ODR |= (1 << 6); // Encender SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Número 6 (Encender SEG_A, SEG_C, SEG_D, SEG_E, SEG_F, SEG_G)
+GPIOA->ODR |= (1 << 0); // Encender SEG_A
+GPIOA->ODR &= ~(1 << 1); // Apagar SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR |= (1 << 3); // Encender SEG_D
+GPIOA->ODR |= (1 << 4); // Encender SEG_E
+GPIOA->ODR |= (1 << 5); // Encender SEG_F
+GPIOA->ODR |= (1 << 6); // Encender SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Número 7 (Encender SEG_A, SEG_B, SEG_C)
+GPIOA->ODR |= (1 << 0); // Encender SEG_A
+GPIOA->ODR |= (1 << 1); // Encender SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR &= ~(1 << 3); // Apagar SEG_D
+GPIOA->ODR &= ~(1 << 4); // Apagar SEG_E
+GPIOA->ODR &= ~(1 << 5); // Apagar SEG_F
+GPIOA->ODR &= ~(1 << 6); // Apagar SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Número 8 (Encender SEG_A, SEG_B, SEG_C, SEG_D, SEG_E, SEG_F, SEG_G)
+GPIOA->ODR |= (1 << 0); // Encender SEG_A
+GPIOA->ODR |= (1 << 1); // Encender SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR |= (1 << 3); // Encender SEG_D
+GPIOA->ODR |= (1 << 4); // Encender SEG_E
+GPIOA->ODR |= (1 << 5); // Encender SEG_F
+GPIOA->ODR |= (1 << 6); // Encender SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
+//Número 9 (Encender SEG_A, SEG_B, SEG_C, SEG_D, SEG_F, SEG_G)
+GPIOA->ODR |= (1 << 0); // Encender SEG_A
+GPIOA->ODR |= (1 << 1); // Encender SEG_B
+GPIOA->ODR |= (1 << 2); // Encender SEG_C
+GPIOA->ODR |= (1 << 3); // Encender SEG_D
+GPIOA->ODR &= ~(1 << 4); // Apagar SEG_E
+GPIOA->ODR |= (1 << 5); // Encender SEG_F
+GPIOA->ODR |= (1 << 6); // Encender SEG_G
+GPIOA->ODR &= ~(1 << 7); // Apagar SEG_DP
 
 // Duración de las señales del semáforo en milisegundos
 unsigned long greenDuration = 5000;
